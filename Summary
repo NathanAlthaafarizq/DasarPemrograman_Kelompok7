@@ -1,0 +1,86 @@
+Normal
+Input : Pilih menu 1 (Nasi Goreng), jumlah porsi 2, lalu pilih 0. Uang bayar 50000.
+Kondisi : Case Of
+Output yang diharapkan : Menampilkan makanan, jumlah porsi, dan total per porsi (20000 x 2 = 40000). Total bayar 44000 (diskon 0%, pajak 10%), kembalian 6000.
+Output Program : Menampilkan Nasi Goreng x2 : 20000 = 40000. Struk menampilkan total bayar 44000 dan kembalian 6000.
+Status : BERHASIL
+
+Kondisi Berbeda / Input Tidak Valid
+Input : Pilih menu 7, lalu pilih menu 3 dengan jumlah porsi 0.
+Kondisi : If else
+Output yang diharapkan : Muncul “Nomor menu tidak valid.” dan “Jumlah harus lebih dari 0.” Kedua input tidak masuk ke total belanja.
+Output Program : Kedua pesan error tampil dan total belanja tidak berubah.
+Status : BERHASIL
+
+Repetition
+Input : Pilih 0 saat belum ada pesanan, lalu pilih menu 1 (1 porsi), menu 4 (2 porsi), dan pilih 0.
+Kondisi : Repeat until
+Output yang diharapkan : Pilih 0 saat total masih 0 menampilkan “Belum ada pesanan” dan pengulangan lanjut. Setelah ada pesanan, pilih 0 menghentikan pengulangan dengan total belanja 30000.
+Output Program : Pengulangan tetap berjalan saat pilih 0 pertama kali. Setelah pesanan masuk, pilih 0 menghentikan pengulangan dengan total belanja 30000.
+Status : BERHASIL
+
+Kondisi Berbeda / Pembayaran Kurang
+Input : Total bayar 44000, uang bayar pertama 40000, lalu 50000.
+Kondisi : While do
+Output yang diharapkan : Uang 40000 kurang, muncul “Uang kurang. Masukkan ulang.” dan diminta input lagi. Setelah 50000, program lanjut ke kembalian 6000.
+Output Program : Pesan “Uang kurang. Masukkan ulang.” tampil, pembayaran diulang sampai uang cukup, lalu kembalian 6000 tampil.
+Status : BERHASIL
+
+Batas
+Input : Pilih menu 1 dengan jumlah porsi 5 (total belanja 100000), uang bayar pas 99000.
+Kondisi : If else if (diskon)
+Output yang diharapkan : Total belanja tepat 100000 mendapat diskon 10% (10000), setelah diskon 90000, pajak 9000, total bayar 99000. Uang pas sehingga kembalian 0.
+Output Program : Diskon 10% terhitung, total bayar 99000, uang 99000 diterima tanpa pengulangan, kembalian 0.
+Status : BERHASIL
+
+ERROR LIST
+
+ERROR #1
+Kesalahan : Jumlah porsi 0 tetap diterima dan masuk ke perhitungan, sehingga total belanja 
+            menjadi 0.
+Penyebab : Tidak ada validasi untuk jumlah porsi. Setelah readln(jumlah), program langsung 
+           menghitung subtotal tanpa memeriksa nilainya.
+Perbaikan : Menambahkan pengecekan if jumlah <= 0 then dengan pesan “Jumlah harus lebih 
+            dari 0.” Perhitungan subtotal dipindahkan ke bagian else
+
+KODE AWAL: 
+write('Jumlah porsi: ');
+readln(jumlah);
+subtotal := harga * jumlah;
+totalBelanja := totalBelanja + subtotal;
+
+HASIL PERBAIKAN: 
+write('Jumlah porsi: ');
+readln(jumlah);
+if jumlah <= 0 then
+  writeln('Jumlah harus lebih dari 0.')
+else
+begin
+  subtotal := harga * jumlah;
+  totalBelanja := totalBelanja + subtotal;
+end;
+
+ERROR #2
+Kesalahan : Uang bayar kurang dari total, tetapi program tetap lanjut ke kembalian.
+Penyebab : Pengecekan uang memakai if, yang hanya dijalankan satu kali. Setelah pesan 
+           muncul, program tetap lanjut ke baris berikutnya.
+Perbaikan : Mengganti if dengan perulangan while uangBayar < totalBayar do, sehingga input 
+            diulang sampai uang cukup.
+
+KODE AWAL:
+write('Uang bayar: ');
+readln(uangBayar);
+if uangBayar < totalBayar then
+  writeln('Uang kurang.');
+kembalian := uangBayar - totalBayar;
+
+HASIL PERBAIKAN:
+write('Uang bayar: ');
+readln(uangBayar);
+while uangBayar < totalBayar do
+begin
+  writeln('Uang kurang. Masukkan ulang.');
+  write('Uang bayar: ');
+  readln(uangBayar);
+end;
+kembalian := uangBayar - totalBayar;
